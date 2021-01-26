@@ -18,4 +18,4 @@ COPY . .
 EXPOSE 5000
 
 # Start the application
-CMD [ "node", "serverdocker.js" ]
+CMD [ "node", "server.js" ]
