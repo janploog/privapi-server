@@ -1,0 +1,10 @@
+{
+    "realm": "privapi",
+    "bearer-only": true,
+    "auth-server-url": "http://127.0.0.1:8080/auth",
+    "ssl-required": "none",
+    "resource": "privapi--backend",
+    "credentials": {
+      "secret": "172dc6b2-d3d6-4cce-9800-1cc8634ff43d"
+    }
+  }

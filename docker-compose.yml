@@ -20,6 +20,8 @@ services:
       - NODE_ENV=development
     networks:
       - app-network
+
+
   mongo:
     image: mongo
     volumes:
@@ -44,6 +46,7 @@ services:
       - "3000:3000"
     networks:
       - app-network
+
 
 networks:
     app-network:
