@@ -8,22 +8,49 @@ const items = require("./routes/api/items");
 const requests = require("./routes/api/requests");
 const clients = require("./routes/api/clients");
 
-//DB Config
-const db = require("./config/keys").mongoURI;
-const mongoUser = require("./config/keys").mongoUser;
-const mongoPw = require("./config/keys").mongoPw;
-const mongoAuthDb = require("./config/keys").mongoAuthDb;
+//ENV Config
+// const db = require("./config/keys").mongoURI;
+// const mongoUser = require("./config/keys").mongoUser;
+// const mongoPw = require("./config/keys").mongoPw;
+// const mongoAuthDb = require("./config/keys").mongoAuthDb;
+// const keycloakConfig = require("./config/keycloak.json");
 
-const MONGO_CONNECTION, MONGO_PORT;
+const db = "";
+const mongoUser = "";
+const mongoPw = "";
+const mongoAuthDb = "";
+const keycloakConfig = "";
 
 // Set variables & connections according to environment
 const dotenv = require("dotenv");
 dotenv.config();
 switch (process.env.NODE_ENV) {
 	case "production":
+		db = process.env.MONGO_URI_PROD;
+		mongoUser = process.env.MONGO_USER_PROD;
+		mongoPw = process.env.MONGO_PW_PROD;
+		mongoAuthDb = process.env.MONGO_AUTH_DB_PROD;
+		keycloakConfig = require("./config/keycloak_PROD.json");
+		break;
+
+	case "demo":
+		db = process.env.MONGO_URI_DEMO;
+		mongoUser = process.env.MONGO_USER_DEMO;
+		mongoPw = process.env.MONGO_PW_DEMO;
+		mongoAuthDb = process.env.MONGO_AUTH_DB_DEMO;
+		keycloakConfig = require("./config/keycloak_DEMO.json");
+		break;
+
+	default:
+		db = process.env.MONGO_URI_DEV;
+		mongoUser = process.env.MONGO_USER_DEV;
+		mongoPw = process.env.MONGO_PW_DEV;
+		mongoAuthDb = process.env.MONGO_AUTH_DB_DEV;
+		keycloakConfig = require("./config/keycloak_DEV.json");
 }
 
-console.log(`Your port is ${process.env.PORT_LISTEN_DEV}`);
+consolee.log("ENV:");
+console.log("  - mongo:", db);
 
 const app = express();
 
