@@ -8,8 +8,21 @@ const items = require("./routes/api/items");
 const requests = require("./routes/api/requests");
 const clients = require("./routes/api/clients");
 
+//DB Config
+const db = require("./config/keys").mongoURI;
+const mongoUser = require("./config/keys").mongoUser;
+const mongoPw = require("./config/keys").mongoPw;
+const mongoAuthDb = require("./config/keys").mongoAuthDb;
+
+const MONGO_CONNECTION, MONGO_PORT;
+
+// Set variables & connections according to environment
 const dotenv = require("dotenv");
 dotenv.config();
+switch (process.env.NODE_ENV) {
+	case "production":
+}
+
 console.log(`Your port is ${process.env.PORT_LISTEN_DEV}`);
 
 const app = express();
@@ -25,12 +38,6 @@ app.use(bodyParser.json());
 	},
 };*/
 //app.use(cors());
-
-//DB Config
-const db = require("./config/keys").mongoURI;
-const mongoUser = require("./config/keys").mongoUser;
-const mongoPw = require("./config/keys").mongoPw;
-const mongoAuthDb = require("./config/keys").mongoAuthDb;
 
 app.use(cors({ origin: true }));
 app.set("trust proxy", true);
