@@ -15,11 +15,9 @@ const clients = require("./routes/api/clients");
 // const mongoAuthDb = require("./config/keys").mongoAuthDb;
 // const keycloakConfig = require("./config/keycloak.json");
 
-const db = "";
-const mongoUser = "";
-const mongoPw = "";
-const mongoAuthDb = "";
-const keycloakConfig = "";
+let db, mongoUser, mongoPw, mongoAuthDb;
+let keycloakConfig;
+let port;
 
 // Set variables & connections according to environment
 const dotenv = require("dotenv");
@@ -31,6 +29,7 @@ switch (process.env.NODE_ENV) {
 		mongoPw = process.env.MONGO_PW_PROD;
 		mongoAuthDb = process.env.MONGO_AUTH_DB_PROD;
 		keycloakConfig = require("./config/keycloak_PROD.json");
+		port = process.env.PORT_LISTEN_PROD;
 		break;
 
 	case "demo":
@@ -39,6 +38,7 @@ switch (process.env.NODE_ENV) {
 		mongoPw = process.env.MONGO_PW_DEMO;
 		mongoAuthDb = process.env.MONGO_AUTH_DB_DEMO;
 		keycloakConfig = require("./config/keycloak_DEMO.json");
+		port = process.env.PORT_LISTEN_DEMO;
 		break;
 
 	default:
@@ -47,9 +47,10 @@ switch (process.env.NODE_ENV) {
 		mongoPw = process.env.MONGO_PW_DEV;
 		mongoAuthDb = process.env.MONGO_AUTH_DB_DEV;
 		keycloakConfig = require("./config/keycloak_DEV.json");
+		port = process.env.PORT_LISTEN_DEV;
 }
 
-consolee.log("ENV:");
+console.log("ENV:", process.env.NODE_ENV);
 console.log("  - mongo:", db);
 
 const app = express();
@@ -81,7 +82,6 @@ app.use(
 );
 
 var Keycloak = require("keycloak-connect");
-const keycloakConfig = require("./config/keycloak.json");
 
 var memoryStore = new session.MemoryStore();
 console.log("Initializing Keycloak...");
@@ -121,7 +121,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 //const port = process.env.PORT || 5000;
-const port = process.env.PORT || require("./config/ports").serverPort;
+//const port = process.env.PORT || require("./config/ports").serverPort;
 
 app.use(keycloak.middleware({ logout: "/" }));
 
